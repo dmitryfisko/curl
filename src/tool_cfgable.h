@@ -44,6 +44,7 @@ struct OperationConfig {
   unsigned long authtype;   /* auth bitmask */
   bool use_resume;
   bool resume_from_current;
+  bool enable_cache;
   bool disable_epsv;
   bool disable_eprt;
   bool ftp_pret;

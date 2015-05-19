@@ -801,6 +801,26 @@ static CURLcode operate_do(struct GlobalConfig *global,
           my_setopt(curl, CURLOPT_TCP_NODELAY, 1L);
 
         /* where to store */
+        if (config->enable_cache) {
+            const char *CACHE_FOLDER = "cache";
+            char path[256];
+            char str_num[10];
+            _mkdir(CACHE_FOLDER);
+            
+            int cur_num = 1;
+            do {
+                strcpy(path, CACHE_FOLDER);
+                strcat(path, "/");
+                itoa(cur_num, str_num, 10);
+                strcat(path, str_num);
+                strcat(path, ".txt");
+                ++cur_num;
+                //continue until file with such path exist
+            } while(_access(path, 0) != -1);
+
+            FILE *cache = fopen(path, "wb");
+            outs.stream = cache;
+        }
         my_setopt(curl, CURLOPT_WRITEDATA, &outs);
         if(metalink || !config->use_metalink)
           /* what call to write */

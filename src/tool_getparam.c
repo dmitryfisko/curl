@@ -197,6 +197,7 @@ static const struct LongShort aliases[]= {
   {"B",  "use-ascii",                FALSE},
   {"c",  "cookie-jar",               TRUE},
   {"C",  "continue-at",              TRUE},
+  {"!",  "cache",                    FALSE},
   {"d",  "data",                     TRUE},
   {"dr", "data-raw",                 TRUE},
   {"da", "data-ascii",               TRUE},
@@ -1100,7 +1101,10 @@ ParameterError getparameter(char *flag,    /* f or -long-flag */
         config->resume_from_current = TRUE;
         config->resume_from = 0;
       }
-      config->use_resume=TRUE;
+      config->use_resume = TRUE;
+      break;
+    case '!':
+      config->enable_cache = TRUE;
       break;
     case 'd':
       /* postfield data */
